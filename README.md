@@ -7,6 +7,7 @@
 ## 学习资料
 
 * 官网地址：https://openlayers.org/
+* 示例代码使用 [V4.6.5](https://github.com/openlayers/openlayers/releases/tag/v4.6.5) 
 * 目前最新版本 [v6.3.1](https://openlayers.org/download/)
 * ES6相关知识：https://es6.ruanyifeng.com/
 
@@ -14,7 +15,7 @@
 
 #### 一、OpenLayers 入门
 
-* 最好的学习资料
+* [最好的学习资料](https://github.com/lihaogis/OpenLayersNote/blob/master/note01/note01.md)
 
 * 加载第一个地图
 * OL地图架构
