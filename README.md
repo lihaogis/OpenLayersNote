@@ -6,10 +6,12 @@
 
 ## 学习资料
 
-* 官网地址：https://openlayers.org/
-* 示例代码使用 [V4.6.5](https://github.com/openlayers/openlayers/releases/tag/v4.6.5) 
-* 目前最新版本 [v6.3.1](https://openlayers.org/download/)
-* ES6相关知识：https://es6.ruanyifeng.com/
+* 官网地址：
+    * Openlayers：https://openlayers.org/
+    * CesiumJS：https://cesium.com/cesiumjs/
+    * Three.js：https://threejs.org/
+* 相关资料：
+    * ES6相关知识：https://es6.ruanyifeng.com/
 
 ## 文档索引
 
@@ -23,4 +25,9 @@
 
 #### 五、Leaflet
 
-### 关于作者
+## 关于作者
+
+github：[lihaogis](https://github.com/lihaogis)
+
+简书：[秋收拖拉机](https://www.jianshu.com/u/ab62fccdd9ea)
+

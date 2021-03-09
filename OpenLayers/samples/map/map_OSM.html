@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OSM地图</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../lib/ol.css" />
+    <script tyep="text/javascript" src="../lib/ol.js"></script>
+    <style type="text/css">
+        #map {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+    </div>
+</body>
+<script type="text/javascript">
+    //经纬度坐标转投影坐标
+    var center = ol.proj.fromLonLat([117, 32]);
+
+    //定义视图
+    var view = new ol.View({
+        center: center,
+        zoom: 6
+    });
+
+    var map = new ol.Map({
+        target: 'map',
+        layers: [
+            new ol.layer.Tile({
+                preload: 4,
+                source: new ol.source.OSM()
+            })
+        ],
+        loadTilesWhileAnimating: true,
+        view: view
+    });
+
+</script>
+
+</html>

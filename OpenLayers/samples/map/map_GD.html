@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>高德地图</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../lib/ol.css" />
+    <script tyep="text/javascript" src="../lib/ol.js"></script>
+    <style type="text/css">
+        #map {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+    </div>
+</body>
+<script type="text/javascript">
+    //经纬度坐标转投影坐标
+    var center = ol.proj.fromLonLat([117.27, 31.86]);
+
+    //定义视图
+    var view = new ol.View({
+        center: center,
+        zoom: 10
+    });
+
+    var map = new ol.Map({
+        target: 'map',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://webrd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8'
+                })
+            })
+        ],
+        loadTilesWhileAnimating: true,
+        view: view
+    });
+
+</script>
+
+</html>
