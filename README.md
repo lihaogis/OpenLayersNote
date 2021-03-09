@@ -13,7 +13,7 @@
 
 ## 文档索引
 
-#### 一、[OpenLayers](https://github.com/lihaogis/OpenLayersNote/blob/master/note01/note01.md)
+#### 一、[OpenLayers](https://github.com/lihaogis/GIS-Front-end-Framework-Notes/blob/master/OpenLayers/OpenLayers_README.md)
 
 #### 二、Cesium
 
