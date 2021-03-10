@@ -4,8 +4,8 @@
 <head>
     <title>天地图</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../lib/ol.css" />
-    <script tyep="text/javascript" src="../lib/ol.js"></script>
+    <link rel="stylesheet" type="text/css" href="../lib/v6.5.0/ol.css" />
+    <script tyep="text/javascript" src="../lib/v6.5.0/ol.js"></script>
     <style type="text/css">
         #map {
             position: fixed;
@@ -25,20 +25,21 @@
 </body>
 <script type="text/javascript">
     //经纬度坐标转投影坐标
-    var hefei = ol.proj.fromLonLat([117, 32]);
-    
+    var center = ol.proj.fromLonLat([117.27, 31.86]);
+
     //定义视图
     var view = new ol.View({
-        center: hefei,
-        zoom: 6
+        center: center,
+        zoom: 10
     });
 
     var map = new ol.Map({
         target: 'map',
         layers: [
-            new ol.layer.Tile({
-                preload: 4,
-                source: new ol.source.OSM()
+            new ol.layer.Tile({//矢量地图
+                source: new ol.source.XYZ({
+                    url: 'http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/' + 'tile/{z}/{y}/{x}'
+                })
             })
         ],
         loadTilesWhileAnimating: true,

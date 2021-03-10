@@ -4,8 +4,8 @@
 <head>
     <title>高德地图</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../lib/ol.css" />
-    <script tyep="text/javascript" src="../lib/ol.js"></script>
+    <link rel="stylesheet" type="text/css" href="../lib/v6.5.0/ol.css" />
+    <script tyep="text/javascript" src="../lib/v6.5.0/ol.js"></script>
     <style type="text/css">
         #map {
             position: fixed;
@@ -30,21 +30,38 @@
     //定义视图
     var view = new ol.View({
         center: center,
-        zoom: 10
+        zoom: 10,
+        maxZoom: 18
     });
 
     var map = new ol.Map({
         target: 'map',
         layers: [
-            new ol.layer.Tile({
+            new ol.layer.Tile({//矢量地图
                 source: new ol.source.XYZ({
                     url: 'http://webrd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8'
+                })
+            }),
+            new ol.layer.Tile({//影像地图
+                source: new ol.source.XYZ({
+                    url: 'https://webst03.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}'
+                })
+            }),
+            new ol.layer.Tile({//路网无标注地图
+                source: new ol.source.XYZ({
+                    url: 'https://wprd04.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8&ltype=11'
+                })
+            }),
+            new ol.layer.Tile({//标注地图
+                source: new ol.source.XYZ({
+                    url: 'https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&style=8'
                 })
             })
         ],
         loadTilesWhileAnimating: true,
         view: view
     });
+
 
 </script>
 

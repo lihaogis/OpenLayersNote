@@ -2,10 +2,11 @@
 <html>
 
 <head>
-    <title>天地图</title>
+    <title>百度地图</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../lib/ol.css" />
-    <script tyep="text/javascript" src="../lib/ol.js"></script>
+    <!-- 最新版本地图会偏移 -->
+    <link rel="stylesheet" type="text/css" href="../lib/v4.6.5/ol.css" />
+    <script tyep="text/javascript" src="../lib/v4.6.5/ol.js"></script>
     <style type="text/css">
         #map {
             position: fixed;
@@ -25,25 +26,50 @@
 </body>
 <script type="text/javascript">
     //经纬度坐标转投影坐标
-    var hefei = ol.proj.fromLonLat([117, 32]);
-    
+    var center = ol.proj.fromLonLat([117.27, 31.86]);
+
     //定义视图
     var view = new ol.View({
-        center: hefei,
-        zoom: 6
+        center: center,
+        zoom: 10,
+        maxZoom: 18
+    });
+
+    var resolutions = [];
+    for (var i = 0; i <= 18; i++) {
+        resolutions[i] = Math.pow(2, 18 - i);
+    }
+
+    var tileGrid = new ol.tilegrid.TileGrid({
+        origin: [0, 0],
+        resolutions: resolutions
+    });
+
+    var baiduSource = new ol.source.TileImage({
+        projection: "EPSG:3857",
+        tileGrid: tileGrid,
+        tileUrlFunction: function (tileCoord, pixelRatio, proj) {
+            if (!tileCoord) {
+                return "";
+            } var z = tileCoord[0]; var x = tileCoord[1]; var y = tileCoord[2]; if (x < 0) {
+                x = "M" + (-x);
+            } if (y < 0) {
+                y = "M" + (-y);
+            } return "http://online3.map.bdimg.com/onlinelabel/?qt=tile&x=" + x + "&y=" + y + "&z=" + z + "&styles=pl&udt=20151021&scaler=1&p=1";
+        }
     });
 
     var map = new ol.Map({
         target: 'map',
         layers: [
-            new ol.layer.Tile({
-                preload: 4,
-                source: new ol.source.OSM()
+            new ol.layer.Tile({//矢量地图
+                source: baiduSource
             })
         ],
         loadTilesWhileAnimating: true,
         view: view
     });
+
 
 </script>
 

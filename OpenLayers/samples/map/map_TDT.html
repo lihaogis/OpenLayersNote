@@ -4,8 +4,8 @@
 <head>
     <title>天地图</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../lib/ol.css" />
-    <script tyep="text/javascript" src="../lib/ol.js"></script>
+    <link rel="stylesheet" type="text/css" href="../lib/v6.5.0/ol.css" />
+    <script tyep="text/javascript" src="../lib/v6.5.0/ol.js"></script>
     <style type="text/css">
         #map {
             position: fixed;
@@ -25,25 +25,70 @@
 </body>
 <script type="text/javascript">
     //经纬度坐标转投影坐标
-    var hefei = ol.proj.fromLonLat([117, 32]);
-    
+    var center = ol.proj.fromLonLat([117.27, 31.86]);
+
     //定义视图
     var view = new ol.View({
-        center: hefei,
-        zoom: 6
+        center: center,
+        zoom: 10,
+        maxZoom: 18
+    });
+
+    //矢量地图
+    var tdtSLGroup = new ol.layer.Group({
+        layers: [
+            new ol.layer.Tile({//天地图矢量
+                source: new ol.source.XYZ({
+                    url: 'https://t6.tianditu.gov.cn/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=f7fd9f47beb5b90b8a6488f11f4f0804'
+                })
+            }),
+            new ol.layer.Tile({//天地图矢量标注
+                source: new ol.source.XYZ({
+                    url: 'https://t1.tianditu.gov.cn/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=f7fd9f47beb5b90b8a6488f11f4f0804'
+                })
+            })
+        ]
+    });
+
+    //影像地图
+    var tdtYXGroup = new ol.layer.Group({
+        layers: [
+            new ol.layer.Tile({//天地图影像地图
+                source: new ol.source.XYZ({
+                    url: 'https://t6.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=f7fd9f47beb5b90b8a6488f11f4f0804'
+                })
+            }),
+            new ol.layer.Tile({//天地图影像标注地图
+                source: new ol.source.XYZ({
+                    url: 'https://t6.tianditu.gov.cn/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=f7fd9f47beb5b90b8a6488f11f4f0804'
+                })
+            })
+        ]
+    });
+
+    //地形地图
+    var tdtDXGroup = new ol.layer.Group({
+        layers: [
+            new ol.layer.Tile({//天地图影像地图
+                source: new ol.source.XYZ({
+                    url: 'https://t6.tianditu.gov.cn/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=f7fd9f47beb5b90b8a6488f11f4f0804'
+                })
+            }),
+            new ol.layer.Tile({//天地图影像标注地图
+                source: new ol.source.XYZ({
+                    url: 'https://t6.tianditu.gov.cn/DataServer?T=cta_w&x={x}&y={y}&l={z}&tk=f7fd9f47beb5b90b8a6488f11f4f0804'
+                })
+            })
+        ]
     });
 
     var map = new ol.Map({
         target: 'map',
-        layers: [
-            new ol.layer.Tile({
-                preload: 4,
-                source: new ol.source.OSM()
-            })
-        ],
+        layers: tdtDXGroup,
         loadTilesWhileAnimating: true,
         view: view
     });
+
 
 </script>
 
