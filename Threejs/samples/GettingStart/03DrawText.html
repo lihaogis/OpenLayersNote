@@ -2,65 +2,57 @@
 <html>
 
 <head>
-    <title>DrawLine</title>
+    <title>DrawText</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script tyep="text/javascript" src="../js/three.js"></script>
     <style type="text/css">
         body {
             margin: 0;
         }
-
-        #info {
-            position: absolute;
-            top: 10px;
-            width: 100%;
-            text-align: center;
-            z-index: 100;
-            display: block;
-        }
     </style>
 </head>
 
 <body>
-    <div id='info'>Description</div>
-    
     <script type="text/javascript">
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-        camera.position.set(0, 0, 100);
-        camera.lookAt(0, 0, 0);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        const material = new THREE.LineBasicMaterial({
-            color: 0x0000ff
+        const spotlight = new THREE.SpotLight(0xFFFFFF);
+        spotlight.position.set(-25, 10, 0);
+
+        scene.add(spotlight);
+
+        var loader = new THREE.FontLoader();
+        loader.load("../fonts/optimer_bold.typeface.json", function (font) {
+            const new_text = new THREE.TextGeometry("Hello Three.js!", {
+                font: font,
+                size: 1,
+                height: 0.3
+            });
+
+            const material_text = new THREE.MeshLambertMaterial({
+                color: 0x9933FF
+            });
+
+            const text_1 = new THREE.Mesh(new_text, material_text);
+            //创建文字
+            scene.add(text_1);
+            //添加文字
+            text_1.position.z = -17.4;
+            text_1.position.y = 4;
+            text_1.position.x = -2.5;
         });
 
-        const points = [];
-        points.push(new THREE.Vector3(-10, 0, 0));
-        points.push(new THREE.Vector3(0, 10, 0));
-        points.push(new THREE.Vector3(10, 0, 0));
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
 
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-
-        const line = new THREE.Line(geometry, material);
-
-        scene.add(line);
-
-        renderer.render(scene, camera);
-
-        // const animate = function () {
-        //     requestAnimationFrame(animate);
-
-        //     line.rotation.x += 0.01;
-        //     line.rotation.y += 0.01;
-
-        //     renderer.render(scene, camera);
-        // };
-
-        // animate();
+        animate();
     </script>
 </body>
 

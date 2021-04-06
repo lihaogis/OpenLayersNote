@@ -7,7 +7,7 @@
 ## 学习资料
 
 - 官网地址：https://threejs.org/
-- 示例代码使用版本 [最新](https://threejs.org/build/three.js) 
+- 示例代码使用版本 [r126](https://github.com/mrdoob/three.js/tree/r126) 
 
 ## 文档索引
 
