@@ -2,9 +2,10 @@
 <html>
 
 <head>
-    <title>第一个3D场景</title>
+    <title>鼠标操作三维场景</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script tyep="text/javascript" src="../js/three.js"></script>
+    <script type="text/javascript" src="../js/jsCore/controls/OrbitControls.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -27,7 +28,7 @@
         document.body.appendChild(renderer.domElement);
 
         //创建几何对象
-        const geometry = new THREE.BoxGeometry();
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
 
         //创建材质
         const material = new THREE.MeshBasicMaterial({
@@ -38,18 +39,22 @@
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
-        camera.position.z = 5;
+        camera.position.x = 3;
+        camera.position.y = 3;
+        camera.position.z = 3;
+        camera.lookAt(scene.position);
 
-        //创建动画刷新函数
-        const animate = function () {
-            requestAnimationFrame(animate);
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-
+        //创建渲染函数
+        function render() {
             renderer.render(scene, camera);
         };
 
-        animate();
+        render();
+
+        //创建渲染函数
+        var controls = new THREE.OrbitControls(camera, renderer.domElement); //创建控件对象
+        controls.addEventListener('change', render); //监听鼠标、键盘事件
+
     </script>
 </body>
 
