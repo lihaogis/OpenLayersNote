@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>加载三维模型</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script tyep="text/javascript" src="../js/three.js"></script>
+    <script type="text/javascript" src="../js/jsCore/controls/OrbitControls.js"></script>
+    <script type="text/javascript" src="../js/jsCore/loaders/GLTFLoader.js"></script>
+    <script type="text/javascript" src="../js/jsCore/loaders/RGBELoader.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //创建三维场景
+        const scene = new THREE.Scene();
+
+        //创建透摄相机
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+
+        //创建渲染器
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        new THREE.RGBELoader().setDataType(THREE.UnsignedByteType).setPath('../textures/equirectangular/')
+            .load('royal_esplanade_1k.hdr', function (texture) {
+                const pmremGenerator = new THREE.PMREMGenerator(renderer);
+
+                const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+                pmremGenerator.compileEquirectangularShader();
+
+                scene.background = envMap;//在渲染场景的时候将设置背景，且背景总是首先被渲染的
+                scene.environment = envMap;//该纹理贴图将会被设为场景中所有物理材质的环境贴图
+
+                texture.dispose();
+                pmremGenerator.dispose();
+
+                render();
+            })
+
+        //加载gltf模型
+        const loader = new THREE.GLTFLoader().setPath('../modes/gltf/DamagedHelmet/glTF/');
+        loader.load(
+            'DamagedHelmet.gltf',
+            function (gltf) {
+                scene.add(gltf.scene);
+                render();
+            })
+
+        camera.position.z = 5;
+
+        //创建渲染函数
+        function render() {
+            renderer.render(scene, camera);
+        };
+
+
+        //创建渲染函数
+        var controls = new THREE.OrbitControls(camera, renderer.domElement); //创建控件对象
+        controls.addEventListener('change', render); //监听鼠标、键盘事件
+    </script>
+</body>
+
+</html>

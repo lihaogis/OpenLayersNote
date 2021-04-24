@@ -21,6 +21,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
+        //添加灯光
         const spotlight = new THREE.SpotLight(0xFFFFFF);
         spotlight.position.set(-25, 10, 0);
 
@@ -43,7 +44,7 @@
             scene.add(text_1);
             //添加文字
             text_1.position.z = -17.4;
-            text_1.position.y = 4;
+            text_1.position.y = 3;
             text_1.position.x = -2.5;
         });
 
